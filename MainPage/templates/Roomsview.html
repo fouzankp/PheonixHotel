@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+    <head>
+        <title>List of Rooms</title>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <th>Room No</th>
+                <th>Room Type</th>
+                <th>Status</th>
+                <th>Checkin</th>
+                <th>Reserved</th>
+            </tr>
+            {% for i in RoomList %}
+            <tr>
+                <td>{{ i.Roomno }}</td>
+                <td>{{ i.RoomType }}</td>
+                <td>{{ i.Status }}</td>
+                <td>{{ i.Checkin }}</td>
+                <td>{{ i.Reserved }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+    </body>
+</html>
