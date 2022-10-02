@@ -22,5 +22,6 @@ import MainPage
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('Main/', include('MainPage.urls')),
+    path("", views.front, name="front"),
    
 ]

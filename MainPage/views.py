@@ -8,10 +8,9 @@ from .models import Rooms
 def first_view(request):
     return HttpResponse('Hello World')
 
-class RoomsList(ListView):
-    model: Rooms
-    template_name: 'Roomsview.html'
-    queryset: Rooms.objects.all()
+def front(request):
+    context = { }
+    return render(request, "index.html", context)
     
 
 def second_view(request):
