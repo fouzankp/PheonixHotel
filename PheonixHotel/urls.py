@@ -22,5 +22,5 @@ import MainPage
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('Main/', include('MainPage.urls')),
-    path('Rooms/', views.RoomsList.as_view()),
+   
 ]
