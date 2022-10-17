@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic import ListView
 from .models import Rooms
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import RoomSerializer
+
 # Create your views here.
 
 
@@ -15,3 +19,30 @@ def front(request):
 
 def second_view(request):
     return render(request, 'Roomsview.html',{'RoomList': Rooms.objects.all()})
+
+
+@api_view(['GET','POST'])
+def RoomView(request):
+    if request.method == 'GET':
+        room = Rooms.objects.all()
+        serializer = RoomSerializer(room, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = RoomSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['DELETE'])
+def RoomDetail(request, pk):
+    try:
+        room = Rooms.objects.get(pk=pk)
+    except Rooms.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'DELETE':
+        room.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+

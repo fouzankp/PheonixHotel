@@ -11,4 +11,7 @@ class Rooms(models.Model):
     Checkin = models.DateTimeField(null=True)
     Reserved = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.title
+
 

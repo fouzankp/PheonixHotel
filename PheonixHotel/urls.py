@@ -23,5 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('Main/', include('MainPage.urls')),
     path("", views.front, name="front"),
+    path('rooms/', views.RoomView, name='Rooms'),
+    path('rooms/<int:pk>', views.RoomDetail, name='Details'),
    
 ]
