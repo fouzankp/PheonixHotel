@@ -1,6 +1,7 @@
 import {useState, useEffect} from "react"
 import axios from "axios"
 import List from "./RoomList"
+import AddIcon from "@material-ui/icons/Add";
 
 function Room() {
     const [rooms, setNewRooms] = useState(null)
@@ -11,6 +12,14 @@ function Room() {
         Checkin: null,
         Reserved: false
     })
+
+    const [isExpanded, setExpanded]= useState(false)
+    const [rows, setRows]= useState(1)
+
+    function RoomShow(){
+        setExpanded(true)
+        setRows(3)
+       }
 
     useEffect(() => {
         getRooms()
@@ -81,7 +90,9 @@ function Room() {
           <input onChange={handleChange} text={formRoom.RoomType} name="RoomType" placeholder="RoomType" value={formRoom.RoomType} />
           <input onChange={handleChange} text={formRoom.Status} name="Status" placeholder="Status" value={formRoom.Status} />
           <input type="date" onChange={handleChange} text={formRoom.Checkin} name="Checkin" placeholder="Checkin" value={formRoom.Checkin} />
-          <input onChange={handleChange} text={formRoom.Reserved} name="Reserved" placeholder="Reserved" value={formRoom.Reserved} />
+          <label>Reserve: </label>
+          <input onChange={handleChange} type="radio" name="Reserve" value={formRoom.Reserved=false} />  
+          <input onChange={handleChange} type="radio" name="Reserve" value={formRoom.Reserved=true} />  
           <button onClick={createRoom}>Create Room</button>
       </form>
           { rooms && rooms.map(room => <List
