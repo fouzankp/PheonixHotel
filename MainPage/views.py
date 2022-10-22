@@ -1,3 +1,5 @@
+from asyncio.windows_events import NULL
+from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Rooms
@@ -46,3 +48,39 @@ def RoomDetail(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+@api_view(['POST'])
+def Checkin(request, pk):
+    try:
+        room = Rooms.objects.get(pk=pk)
+    except Rooms.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'POST':
+        room.Checkin = datetime.now()
+        room.save()
+        return Response(status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def Checkout(request, pk):
+    try:
+        room = Rooms.objects.get(pk=pk)
+    except Rooms.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'POST':
+        room.Checkin = None
+        room.save()
+        return Response({ 'Message':"this is a test"})        
+
+
+@api_view(['POST'])
+def Reserve(request, pk):
+    try:
+        room = Rooms.objects.get(pk=pk)
+    except Rooms.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'POST':
+        if room.Reserved == True:
+            room.Reserved = False
+        else:
+            room.Reserved = True
+        room.save()
+        return Response({ 'Message':"this is a Reserve"})            

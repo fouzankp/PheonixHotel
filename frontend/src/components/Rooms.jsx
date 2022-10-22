@@ -9,7 +9,7 @@ function Room() {
         Roomno: 0,
         RoomType: "S",
         Status: "C",
-        Checkin: null,
+        Checkin: Date.now(),
         Reserved: false
     })
 

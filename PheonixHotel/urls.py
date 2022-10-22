@@ -25,5 +25,8 @@ urlpatterns = [
     path("", views.front, name="front"),
     path('rooms/', views.RoomView, name='Rooms'),
     path('rooms/<int:pk>', views.RoomDetail, name='Details'),
+    path('checkin/<int:pk>', views.Checkin, name='Checkin'),
+    path('checkout/<int:pk>', views.Checkout, name='Checkout'),
+    path('Reserve/<int:pk>', views.Reserve, name='Reserve'),
    
 ]
