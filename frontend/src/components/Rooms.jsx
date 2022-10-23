@@ -1,7 +1,6 @@
 import {useState, useEffect} from "react"
 import axios from "axios"
 import List from "./RoomList"
-import AddIcon from "@material-ui/icons/Add";
 
 function Room() {
     const [rooms, setNewRooms] = useState(null)
@@ -13,13 +12,7 @@ function Room() {
         Reserved: false
     })
 
-    const [isExpanded, setExpanded]= useState(false)
-    const [rows, setRows]= useState(1)
 
-    function RoomShow(){
-        setExpanded(true)
-        setRows(3)
-       }
 
     useEffect(() => {
         getRooms()
@@ -75,6 +68,33 @@ function Room() {
           getRooms()
         });
     }
+    function checkinRoom(id) {
+        axios({
+          method: "POST",
+          url:`/checkin/${id}`,
+        })
+        .then((response) => {
+          getRooms()
+        });
+    }
+    function checkoutRoom(id) {
+        axios({
+          method: "POST",
+          url:`/checkout/${id}`,
+        })
+        .then((response) => {
+          getRooms()
+        });
+    }
+    function reserveRoom(id) {
+        axios({
+          method: "POST",
+          url:`/Reserve/${id}`,
+        })
+        .then((response) => {
+          getRooms()
+        });
+    }
 
     function handleChange(event) { 
         const {value, name} = event.target
@@ -85,7 +105,7 @@ function Room() {
     return (
     <div className=''>
 
-      <form className="create-note">
+      {/* <form className="create-note">
           <input onChange={handleChange} text={formRoom.Roomno} name="Roomno" placeholder="Roomno" value={formRoom.Roomno} />
           <input onChange={handleChange} text={formRoom.RoomType} name="RoomType" placeholder="RoomType" value={formRoom.RoomType} />
           <input onChange={handleChange} text={formRoom.Status} name="Status" placeholder="Status" value={formRoom.Status} />
@@ -94,7 +114,7 @@ function Room() {
           <input onChange={handleChange} type="radio" name="Reserve" value={formRoom.Reserved=false} />  
           <input onChange={handleChange} type="radio" name="Reserve" value={formRoom.Reserved=true} />  
           <button onClick={createRoom}>Create Room</button>
-      </form>
+      </form> */}
           { rooms && rooms.map(room => <List
           key={room.Roomno}
           Roomno={room.Roomno}
@@ -102,7 +122,10 @@ function Room() {
           Status={room.Status} 
           Checkin={room.Checkin} 
           Reserved={room.Reserved} 
-          deletion ={DeleteRoom}
+          // deletion ={DeleteRoom}
+          checkin ={checkinRoom}
+          checkout ={checkoutRoom}
+          reserve ={reserveRoom}
           />
           )}
 
