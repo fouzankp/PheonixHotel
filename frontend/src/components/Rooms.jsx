@@ -12,8 +12,6 @@ function Room() {
         Reserved: false
     })
 
-
-
     useEffect(() => {
         getRooms()
           } ,[])
